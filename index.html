@@ -79,11 +79,19 @@
             <div class="grid grid-cols-3 gap-4 items-center justify-items-center">
                 <!-- North Road -->
                 <div class="col-start-2 flex flex-col items-center space-y-2">
-                    <div class="text-xs text-muted font-semibold">NORTH ↑↓</div>
-                    <div class="road-container road-vertical rounded-lg" id="road-N">
-                        <div class="road-divider-v"></div>
-                        <div class="lane lane-v-left" id="lane-N-in"></div>
-                        <div class="lane lane-v-right" id="lane-N-out"></div>
+                    <div class="text-xs text-muted font-semibold">NORTH</div>
+                    <div class="flex flex-row items-center space-x-2">
+                        <div class="text-xs text-muted font-semibold">
+                            ↑
+                        </div>
+                        <div class="road-container road-vertical rounded-lg" id="road-N">
+                            <div class="road-divider-v"></div>
+                            <div class="lane lane-v-left" id="lane-N-in"></div>
+                            <div class="lane lane-v-right" id="lane-N-out"></div>
+                        </div>
+                        <div class="text-xs text-muted font-semibold">
+                            ↓
+                        </div>
                     </div>
                 </div>
 
@@ -91,7 +99,7 @@
                 <div class="col-start-1 row-start-2 flex flex-col items-center space-y-2">
                     <div class="text-xs text-muted font-semibold">WEST</div>
                     <div class="text-xs text-muted font-semibold">
-                        ←
+                        →
                     </div>
                     <div class="road-container road-horizontal rounded-lg" id="road-W">
                         <div class="road-divider-h"></div>
@@ -99,7 +107,7 @@
                         <div class="lane lane-h-bottom" id="lane-W-out"></div>
                     </div>
                     <div class="text-xs text-muted font-semibold">
-                        →
+                        ←
                     </div>
                 </div>
 
@@ -138,7 +146,7 @@
                 <div class="col-start-3 row-start-2 flex flex-col items-center space-y-2">
                     <div class="text-xs text-muted font-semibold">EAST</div>
                     <div class="text-xs text-muted font-semibold">
-                        ←
+                        →
                     </div>
                     <div class="road-container road-horizontal rounded-lg" id="road-E">
                         <div class="road-divider-h"></div>
@@ -146,17 +154,25 @@
                         <div class="lane lane-h-bottom" id="lane-E-out"></div>
                     </div>
                     <div class="text-xs text-muted font-semibold">
-                        →
+                        ←
                     </div>
                 </div>
 
                 <!-- South Road -->
                 <div class="col-start-2 row-start-3 flex flex-col items-center space-y-2">
-                    <div class="text-xs text-muted font-semibold">SOUTH ↑↓</div>
-                    <div class="road-container road-vertical rounded-lg" id="road-S">
-                        <div class="road-divider-v"></div>
-                        <div class="lane lane-v-left" id="lane-S-in"></div>
-                        <div class="lane lane-v-right" id="lane-S-out"></div>
+                    <div class="text-xs text-muted font-semibold">SOUTH</div>
+                    <div class="flex flex-row items-center space-x-2">
+                        <div class="text-xs text-muted font-semibold">
+                            ↑
+                        </div>
+                        <div class="road-container road-vertical rounded-lg" id="road-S">
+                            <div class="road-divider-v"></div>
+                            <div class="lane lane-v-left" id="lane-S-in"></div>
+                            <div class="lane lane-v-right" id="lane-S-out"></div>
+                        </div>
+                        <div class="text-xs text-muted font-semibold">
+                            ↓
+                        </div>
                     </div>
                 </div>
             </div>
@@ -368,18 +384,18 @@
 
             if (isIncoming) {
                 if (isVertical) {
-                    car.style.top = dir === 0 ? '-25px' : '100%';
+                    car.style.top = dir === 0 ? '100%' : '225px';
                     car.style.left = Math.random() * 10 + 'px';
                 } else {
-                    car.style.left = dir === 2 ? '-25px' : '100%';
+                    car.style.left = (dir === 2 || dir === 3) ? '-25px' : '100%';
                     car.style.top = Math.random() * 10 + 'px';
                 }
             } else {
                 if (isVertical) {
-                    car.style.top = '50%';
+                    car.style.top = dir === 1 ? '-25px' : '50%';
                     car.style.left = Math.random() * 10 + 'px';
                 } else {
-                    car.style.left = '50%';
+                    car.style.left = (dir === 2 || dir === 3) ? '225px' : '50%';
                     car.style.top = Math.random() * 10 + 'px';
                 }
             }
@@ -397,13 +413,13 @@
                 }
 
                 if (isVertical) {
-                    const startY = dir === 0 ? -25 : (isIncoming ? 225 : 100);
-                    const endY = isIncoming ? 100 : (dir === 0 ? 225 : -25);
+                    const startY = dir === 0 ? (isIncoming ? 225 : -25) : (isIncoming ? 225 : -25);
+                    const endY = isIncoming ? 100 : (dir === 0 ? 225 : 100);
                     const y = startY + (endY - startY) * t;
                     car.style.top = y + 'px';
                 } else {
-                    const startX = dir === 2 ? -25 : (isIncoming ? 225 : 100);
-                    const endX = isIncoming ? 100 : (dir === 2 ? 225 : -25);
+                    const startX = (dir === 2 || dir === 3) ? (isIncoming ? -25 : 225) : (isIncoming ? 225 : 100);
+                    const endX = isIncoming ? 100 : ((dir === 2 || dir === 3) ? -25 : -25);
                     const x = startX + (endX - startX) * t;
                     car.style.left = x + 'px';
                 }
