@@ -378,9 +378,31 @@
 
             const car = document.createElement('div');
             car.className = 'car';
-            car.textContent = '🚗';
+            
+            // Use car.png image instead of emoji
+            const carImg = document.createElement('img');
+            carImg.src = 'car.png';
+            carImg.style.width = '25px';
+            carImg.style.height = '25px';
+            carImg.style.display = 'block';
+            car.appendChild(carImg);
 
             const isVertical = dir === 0 || dir === 1;
+            
+            // Apply rotation based on direction and lane
+            if (isVertical && (dir === 0 || dir === 1)) {
+                // North and South: right lanes rotated 180 degrees
+                if (laneEl.classList.contains('lane-v-right')) {
+                    car.style.transform = 'rotate(180deg)';
+                }
+            } else if (!isVertical && (dir === 2 || dir === 3)) {
+                // West and East: upper lane rotated 90 degrees clockwise, lower lane rotated 90 degrees anti-clockwise
+                if (laneEl.classList.contains('lane-h-top')) {
+                    car.style.transform = 'rotate(90deg)';
+                } else if (laneEl.classList.contains('lane-h-bottom')) {
+                    car.style.transform = 'rotate(-90deg)';
+                }
+            }
 
             if (isIncoming) {
                 if (isVertical) {
